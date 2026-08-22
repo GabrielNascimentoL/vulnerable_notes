@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { registerUser } from "../services/AuthService";
+import { loginUser, registerUser } from "../services/AuthService";
 import { AppError } from "../errors/AppError";
 
 export const register = async (req: Request, res: Response) => {
@@ -13,6 +13,25 @@ export const register = async (req: Request, res: Response) => {
       return res.status(error.statusCode).json({ error: error.message });
     }
 
-    return res.status(500).json({ error: "Internal server error." });
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
+
+
+export const login = async (req: Request, res: Response) => {
+    const { email, password } = req.body;
+
+    try {
+      const user = await loginUser(email, password);
+      return res.status(200).json(user);
+    } catch (error) {
+       if (error instanceof AppError) {
+      return res.status(error.statusCode).json({ error: error.message });
+    }
+
+    return res.status(500).json({ error: "Internal server error" });
+    }
+
+
+    
+}

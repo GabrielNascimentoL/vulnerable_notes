@@ -17,7 +17,7 @@ I'm a fullstack developer transitioning into AppSec/WebSec. This project exists 
 
 It's part of a two-repo pair:
 - **This repo:** a working app with the vulnerabilities implemented as part of normal development
-- **Fixed repo (coming soon):** a fork of this repository with each vulnerability fixed individually, preserving history for direct comparison
+- **Fixed repo (coming soon):** a fork of this repository with each vulnerability fixed individually, preserving history for direct comparison. It will also introduce a DevSecOps layer on top of the fixes — GitHub Actions CI, SCA, SAST, and DAST — to show the vulnerabilities being caught by tooling, not just fixed by hand.
 
 ---
 
@@ -57,7 +57,8 @@ npx drizzle-kit migrate
 |---|---|---|---|
 | 1 | A02 — Security Misconfiguration | Hardcoded JWT secret | [docs/A02-security-misconfiguration.md](docs/A02-security-misconfiguration.md) |
 | 2 | A04 — Cryptographic Failures | Password hashing (MD5, no salt) | [docs/A04-crypto-failures.md](docs/A04-crypto-failures.md) |
-| 3 | A07 — Authentication Failures | JWT without expiration | [docs/A07-auth-failures.md](docs/A07-auth-failures.md) |
+| 3 | A07 — Authentication Failures | JWT without expiration + no lockout on failed logins | [docs/A07-auth-failures.md](docs/A07-auth-failures.md) |
+| 4 | A09 — Security Logging and Alerting Failures | No logging of login attempts | [docs/A09-logging-failures.md](docs/A09-logging-failures.md) |
 
 The table above only lists what's actually implemented and documented so far. The full list below tracks what's planned across the rest of the app.
 
@@ -72,9 +73,8 @@ The table above only lists what's actually implemented and documented so far. Th
 | A05 — Injection (SQLi) | Note search | Not started |
 | A05 — Injection (XSS) | Note body rendering | Not started |
 | A06 — Insecure Design | Password reset (no rate limit) | Not started |
-| A07 — Authentication Failures | Password reset (no code expiration) | Not started |
+| A07 — Authentication Failures | Password reset (no code expiration) | Partial (login lockout done — see docs/A07) |
 | A08 — Software/Data Integrity Failures | Attachment upload + note import | Not started |
-| A09 — Security Logging and Alerting Failures | Login attempts | Not started |
 | A10 — Mishandling of Exceptional Conditions | Global error middleware | Not started |
 
 ---
@@ -87,7 +87,8 @@ vuln_notes/
 ├── docs/
 │   ├── A02-security-misconfiguration.md
 │   ├── A04-crypto-failures.md
-│   └── A07-auth-failures.md
+│   ├── A07-auth-failures.md
+│   └── A09-logging-failures.md
 ├── backend/
 │   ├── docker-compose.yml
 │   ├── drizzle.config.ts
@@ -103,7 +104,7 @@ vuln_notes/
 │       ├── errors/
 │       ├── types/
 │       └── utils/
-└── frontend/            (planned)
+└── frontend/
 ```
 
 Each file in `docs/` follows the same format: **context → proof of concept → impact → planned fix → OWASP reference**.

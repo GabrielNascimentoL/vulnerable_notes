@@ -12,6 +12,15 @@ export const list = async (req: AuthenticatedRequest, res: Response) => {
   }
 };
 
+export const search = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const notes = await NoteService.searchNotes(req.query.q as string);
+    return res.status(200).json(notes);
+  } catch (error) {
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 export const getById = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const note = await NoteService.getNote(Number(req.params.id));

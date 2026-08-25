@@ -27,10 +27,10 @@ export async function createUser(
   return user;
 }
 
-export async function getPasswordHashByEmail(email: string): Promise<string> {
+export async function getPasswordHashByEmail(email: string): Promise<string | undefined> {
   const result = await db.execute(
     sql`SELECT password FROM users WHERE email = ${email}`,
   );
 
-  return result.rows[0].password as string;
+  return result.rows[0]?.password as string | undefined;
 }

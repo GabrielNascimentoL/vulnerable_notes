@@ -9,6 +9,13 @@ export async function findAllByUserId(userId: number): Promise<Note[]> {
   return result.rows as unknown as Note[];
 }
 
+export async function searchByTitle(query: string): Promise<Note[]> {
+  const result = await db.execute(
+    sql.raw(`SELECT id, user_id, title, body, created_at FROM notes WHERE title LIKE '%${query}%'`),
+  );
+  return result.rows as unknown as Note[];
+}
+
 export async function findById(id: number): Promise<Note> {
   const result = await db.execute(
     sql`SELECT id, user_id, title, body, created_at FROM notes WHERE id = ${id}`,

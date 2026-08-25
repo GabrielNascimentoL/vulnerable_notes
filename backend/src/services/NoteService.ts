@@ -5,6 +5,10 @@ export async function listNotes(userId: number) {
   return NoteRepository.findAllByUserId(userId);
 }
 
+export async function searchNotes(query: string) {
+  return NoteRepository.searchByTitle(query);
+}
+
 export async function getNote(id: number) {
   const note = await NoteRepository.findById(id);
 

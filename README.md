@@ -60,6 +60,7 @@ npx drizzle-kit migrate
 | 3 | A04 — Cryptographic Failures | Password hashing (MD5, no salt) | [docs/A04-crypto-failures.md](docs/A04-crypto-failures.md) |
 | 4 | A07 — Authentication Failures | JWT without expiration + no lockout on failed logins | [docs/A07-auth-failures.md](docs/A07-auth-failures.md) |
 | 5 | A09 — Security Logging and Alerting Failures | No logging of login attempts | [docs/A09-logging-failures.md](docs/A09-logging-failures.md) |
+| 6 | A05 — Injection (SQLi) | Raw string interpolation in note search | [docs/A05-sql-injection.md](docs/A05-sql-injection.md) |
 
 The table above only lists what's actually implemented and documented so far. The full list below tracks what's planned across the rest of the app.
 
@@ -69,7 +70,6 @@ The table above only lists what's actually implemented and documented so far. Th
 |---|---|---|
 | A02 — Security Misconfiguration | CORS, missing helmet, debug route | Partial (secret only — see docs/A02) |
 | A03 — Software Supply Chain Failures | `package.json` | Not started |
-| A05 — Injection (SQLi) | Note search | Not started |
 | A05 — Injection (XSS) | Note body rendering | Not started |
 | A06 — Insecure Design | Password reset (no rate limit) | Not started |
 | A07 — Authentication Failures | Password reset (no code expiration) | Partial (login lockout done — see docs/A07) |
@@ -87,6 +87,7 @@ vuln_notes/
 │   ├── A01-broken-access-control.md
 │   ├── A02-security-misconfiguration.md
 │   ├── A04-crypto-failures.md
+│   ├── A05-sql-injection.md
 │   ├── A07-auth-failures.md
 │   └── A09-logging-failures.md
 ├── backend/

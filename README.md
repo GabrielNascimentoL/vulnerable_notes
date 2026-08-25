@@ -55,10 +55,11 @@ npx drizzle-kit migrate
 
 | # | Category (OWASP 2025) | Where | Docs |
 |---|---|---|---|
-| 1 | A02 — Security Misconfiguration | Hardcoded JWT secret | [docs/A02-security-misconfiguration.md](docs/A02-security-misconfiguration.md) |
-| 2 | A04 — Cryptographic Failures | Password hashing (MD5, no salt) | [docs/A04-crypto-failures.md](docs/A04-crypto-failures.md) |
-| 3 | A07 — Authentication Failures | JWT without expiration + no lockout on failed logins | [docs/A07-auth-failures.md](docs/A07-auth-failures.md) |
-| 4 | A09 — Security Logging and Alerting Failures | No logging of login attempts | [docs/A09-logging-failures.md](docs/A09-logging-failures.md) |
+| 1 | A01 — Broken Access Control | IDOR on `GET/PUT/DELETE /notes/:id` + mass assignment on `POST /notes` | [docs/A01-broken-access-control.md](docs/A01-broken-access-control.md) |
+| 2 | A02 — Security Misconfiguration | Hardcoded JWT secret | [docs/A02-security-misconfiguration.md](docs/A02-security-misconfiguration.md) |
+| 3 | A04 — Cryptographic Failures | Password hashing (MD5, no salt) | [docs/A04-crypto-failures.md](docs/A04-crypto-failures.md) |
+| 4 | A07 — Authentication Failures | JWT without expiration + no lockout on failed logins | [docs/A07-auth-failures.md](docs/A07-auth-failures.md) |
+| 5 | A09 — Security Logging and Alerting Failures | No logging of login attempts | [docs/A09-logging-failures.md](docs/A09-logging-failures.md) |
 
 The table above only lists what's actually implemented and documented so far. The full list below tracks what's planned across the rest of the app.
 
@@ -66,8 +67,6 @@ The table above only lists what's actually implemented and documented so far. Th
 
 | Category (OWASP 2025) | Where | Status |
 |---|---|---|
-| A01 — Broken Access Control (IDOR) | `GET/PUT/DELETE /notes/:id` | Not started |
-| A01 — Broken Access Control (Mass Assignment) | `POST /notes` | Not started |
 | A02 — Security Misconfiguration | CORS, missing helmet, debug route | Partial (secret only — see docs/A02) |
 | A03 — Software Supply Chain Failures | `package.json` | Not started |
 | A05 — Injection (SQLi) | Note search | Not started |
@@ -85,6 +84,7 @@ The table above only lists what's actually implemented and documented so far. Th
 vuln_notes/
 ├── README.md
 ├── docs/
+│   ├── A01-broken-access-control.md
 │   ├── A02-security-misconfiguration.md
 │   ├── A04-crypto-failures.md
 │   ├── A07-auth-failures.md
@@ -101,6 +101,7 @@ vuln_notes/
 │       │   ├── schema.ts
 │       │   └── migrations/
 │       ├── routes/
+│       ├── middlewares/
 │       ├── errors/
 │       ├── types/
 │       └── utils/

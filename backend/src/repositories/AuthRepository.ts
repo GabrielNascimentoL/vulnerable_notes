@@ -19,7 +19,7 @@ export async function createUser(
   );
 
   const user: User = {
-    id: result.rows[0].id as string,
+    id: result.rows[0].id as number,
     email: result.rows[0].email as string,
     created_at: result.rows[0].created_at as string,
   };

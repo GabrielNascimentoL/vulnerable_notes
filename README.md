@@ -58,10 +58,11 @@ npx drizzle-kit migrate
 | 1 | A01 — Broken Access Control | IDOR on `GET/PUT/DELETE /notes/:id` + mass assignment on `POST /notes` | [docs/A01-broken-access-control.md](docs/A01-broken-access-control.md) |
 | 2 | A02 — Security Misconfiguration | Hardcoded JWT secret | [docs/A02-security-misconfiguration.md](docs/A02-security-misconfiguration.md) |
 | 3 | A04 — Cryptographic Failures | Password hashing (MD5, no salt) | [docs/A04-crypto-failures.md](docs/A04-crypto-failures.md) |
-| 4 | A07 — Authentication Failures | JWT without expiration + no lockout on failed logins | [docs/A07-auth-failures.md](docs/A07-auth-failures.md) |
+| 4 | A07 — Authentication Failures | JWT without expiration, no login lockout, password reset code never expires | [docs/A07-auth-failures.md](docs/A07-auth-failures.md) |
 | 5 | A09 — Security Logging and Alerting Failures | No logging of login attempts | [docs/A09-logging-failures.md](docs/A09-logging-failures.md) |
 | 6 | A05 — Injection (SQLi) | Raw string interpolation in note search | [docs/A05-sql-injection.md](docs/A05-sql-injection.md) |
 | 7 | A08 — Software/Data Integrity Failures | Unfiltered merge on note update, no schema validation | [docs/A08-integrity-failures.md](docs/A08-integrity-failures.md) |
+| 8 | A06 — Insecure Design | No rate limit on password reset confirmation | [docs/A06-insecure-design.md](docs/A06-insecure-design.md) |
 
 The table above only lists what's actually implemented and documented so far. The full list below tracks what's planned across the rest of the app.
 
@@ -72,8 +73,6 @@ The table above only lists what's actually implemented and documented so far. Th
 | A02 — Security Misconfiguration | CORS, missing helmet, debug route | Partial (secret only — see docs/A02) |
 | A03 — Software Supply Chain Failures | `package.json` | Not started |
 | A05 — Injection (XSS) | Note body rendering | Not started |
-| A06 — Insecure Design | Password reset (no rate limit) | Not started |
-| A07 — Authentication Failures | Password reset (no code expiration) | Partial (login lockout done — see docs/A07) |
 | A10 — Mishandling of Exceptional Conditions | Global error middleware | Not started |
 
 ---
@@ -88,6 +87,7 @@ vuln_notes/
 │   ├── A02-security-misconfiguration.md
 │   ├── A04-crypto-failures.md
 │   ├── A05-sql-injection.md
+│   ├── A06-insecure-design.md
 │   ├── A07-auth-failures.md
 │   ├── A08-integrity-failures.md
 │   └── A09-logging-failures.md

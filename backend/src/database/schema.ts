@@ -15,3 +15,10 @@ export const notes = pgTable("notes", {
     body: text("body"),
     created_at: timestamp("created_at").defaultNow().notNull()
 });
+
+export const passwordResetCodes = pgTable("password_reset_codes", {
+    id: serial("id").primaryKey(),
+    user_id: integer("user_id").notNull().references(() => users.id),
+    code: text("code").notNull(),
+    created_at: timestamp("created_at").defaultNow().notNull()
+});

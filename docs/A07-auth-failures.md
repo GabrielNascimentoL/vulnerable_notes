@@ -84,6 +84,47 @@ Weak or common passwords can be brute-forced online, with no friction at all. Co
 
 Add a rate limiter (e.g. `express-rate-limit`) scoped to the login route, and/or an account lockout after N consecutive failures within a time window, with exponential backoff or a temporary cooldown.
 
+## Part 3 — Password reset code never expires
+
+```ts
+// backend/src/services/PasswordResetService.ts
+export async function confirmPasswordReset(email: string, code: string, newPassword: string) {
+  const user = await findUserByEmail(email);
+  // ...
+  const resetCode = await PasswordResetRepository.findLatestByUserId(user.id);
+
+  if (!resetCode || resetCode.code !== code) {
+    throw new AppError("Invalid reset code", 400);
+  }
+  // ...
+}
+```
+
+The `password_reset_codes` table stores a `created_at` timestamp for every generated code, but `confirmPasswordReset` never reads it — the code is compared for equality and nothing else. A code generated today is just as valid a year from now as it was the moment it was issued.
+
+### PoC
+
+```bash
+# Request a code once
+curl -X POST http://localhost:3002/auth/recover-password \
+  -H "Content-Type: application/json" -d '{"email":"user@test.com"}'
+# → code printed to server console, e.g. 461181
+
+# ... any amount of time later, the same code still works ...
+curl -X POST http://localhost:3002/auth/recover-password/confirm \
+  -H "Content-Type: application/json" \
+  -d '{"email":"user@test.com","code":"461181","newPassword":"newpass"}'
+# → 200, password updated
+```
+
+### Impact
+
+A code intercepted or guessed long after it was issued (leaked in a log, cached in a proxy, brute-forced slowly over days to dodge naive detection — see [A06](A06-insecure-design.md)) remains a valid account-takeover vector indefinitely, since there's no window after which it stops working.
+
+### Planned fix
+
+Check `created_at` against a short TTL (e.g. 10 minutes) before accepting a code, and delete or mark it used after a single successful confirmation so it can't be replayed.
+
 ## Related note (A02)
 
 `JWT_SECRET = "secret123"` is also hardcoded in source instead of an environment variable — covered separately in the **A02 — Security Misconfiguration** doc.

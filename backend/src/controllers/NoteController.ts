@@ -49,10 +49,8 @@ export const create = async (req: AuthenticatedRequest, res: Response) => {
 };
 
 export const update = async (req: AuthenticatedRequest, res: Response) => {
-  const { title, body } = req.body;
-
   try {
-    const note = await NoteService.updateNote(Number(req.params.id), title, body);
+    const note = await NoteService.updateNote(Number(req.params.id), req.body);
     return res.status(200).json(note);
   } catch (error) {
     if (error instanceof AppError) {

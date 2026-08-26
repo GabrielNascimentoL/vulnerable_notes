@@ -23,14 +23,16 @@ export async function createNote(title: string, body: string, userId: number) {
   return NoteRepository.create(title, body, userId);
 }
 
-export async function updateNote(id: number, title: string, body: string) {
+export async function updateNote(id: number, updates: Record<string, unknown>) {
   const note = await NoteRepository.findById(id);
 
   if (!note) {
     throw new AppError("Note not found", 404);
   }
 
-  return NoteRepository.update(id, title, body);
+  const merged = Object.assign(note, updates);
+
+  return NoteRepository.update(id, merged.title, merged.body);
 }
 
 export async function deleteNote(id: number) {

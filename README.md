@@ -61,6 +61,7 @@ npx drizzle-kit migrate
 | 4 | A07 — Authentication Failures | JWT without expiration + no lockout on failed logins | [docs/A07-auth-failures.md](docs/A07-auth-failures.md) |
 | 5 | A09 — Security Logging and Alerting Failures | No logging of login attempts | [docs/A09-logging-failures.md](docs/A09-logging-failures.md) |
 | 6 | A05 — Injection (SQLi) | Raw string interpolation in note search | [docs/A05-sql-injection.md](docs/A05-sql-injection.md) |
+| 7 | A08 — Software/Data Integrity Failures | Unfiltered merge on note update, no schema validation | [docs/A08-integrity-failures.md](docs/A08-integrity-failures.md) |
 
 The table above only lists what's actually implemented and documented so far. The full list below tracks what's planned across the rest of the app.
 
@@ -73,7 +74,6 @@ The table above only lists what's actually implemented and documented so far. Th
 | A05 — Injection (XSS) | Note body rendering | Not started |
 | A06 — Insecure Design | Password reset (no rate limit) | Not started |
 | A07 — Authentication Failures | Password reset (no code expiration) | Partial (login lockout done — see docs/A07) |
-| A08 — Software/Data Integrity Failures | Attachment upload + note import | Not started |
 | A10 — Mishandling of Exceptional Conditions | Global error middleware | Not started |
 
 ---
@@ -89,6 +89,7 @@ vuln_notes/
 │   ├── A04-crypto-failures.md
 │   ├── A05-sql-injection.md
 │   ├── A07-auth-failures.md
+│   ├── A08-integrity-failures.md
 │   └── A09-logging-failures.md
 ├── backend/
 │   ├── docker-compose.yml

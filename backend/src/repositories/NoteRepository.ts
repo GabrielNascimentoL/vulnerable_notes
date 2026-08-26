@@ -30,7 +30,7 @@ export async function create(title: string, body: string, userId: number): Promi
   return result.rows[0] as unknown as Note;
 }
 
-export async function update(id: number, title: string, body: string): Promise<Note> {
+export async function update(id: number, title: string, body?: string): Promise<Note> {
   const result = await db.execute(
     sql`UPDATE notes SET title = ${title}, body = ${body} WHERE id = ${id} RETURNING *`,
   );

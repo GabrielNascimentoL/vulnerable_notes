@@ -63,6 +63,7 @@ npx drizzle-kit migrate
 | 6 | A05 — Injection (SQLi) | Raw string interpolation in note search | [docs/A05-sql-injection.md](docs/A05-sql-injection.md) |
 | 7 | A08 — Software/Data Integrity Failures | Unfiltered merge on note update, no schema validation | [docs/A08-integrity-failures.md](docs/A08-integrity-failures.md) |
 | 8 | A06 — Insecure Design | No rate limit on password reset confirmation | [docs/A06-insecure-design.md](docs/A06-insecure-design.md) |
+| 9 | A03 — Software Supply Chain Failures | Pinned vulnerable `jsonwebtoken@8.5.1` | [docs/A03-supply-chain.md](docs/A03-supply-chain.md) |
 
 The table above only lists what's actually implemented and documented so far. The full list below tracks what's planned across the rest of the app.
 
@@ -70,7 +71,6 @@ The table above only lists what's actually implemented and documented so far. Th
 
 | Category (OWASP 2025) | Where | Status |
 |---|---|---|
-| A03 — Software Supply Chain Failures | `package.json` | Not started |
 | A05 — Injection (XSS) | Note body rendering | Not started |
 | A10 — Mishandling of Exceptional Conditions | Global error middleware | Not started |
 
@@ -84,6 +84,7 @@ vuln_notes/
 ├── docs/
 │   ├── A01-broken-access-control.md
 │   ├── A02-security-misconfiguration.md
+│   ├── A03-supply-chain.md
 │   ├── A04-crypto-failures.md
 │   ├── A05-sql-injection.md
 │   ├── A06-insecure-design.md

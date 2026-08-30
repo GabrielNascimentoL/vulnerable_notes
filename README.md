@@ -64,15 +64,15 @@ npx drizzle-kit migrate
 | 7 | A08 — Software/Data Integrity Failures | Unfiltered merge on note update, no schema validation | [docs/A08-integrity-failures.md](docs/A08-integrity-failures.md) |
 | 8 | A06 — Insecure Design | No rate limit on password reset confirmation | [docs/A06-insecure-design.md](docs/A06-insecure-design.md) |
 | 9 | A03 — Software Supply Chain Failures | Pinned vulnerable `jsonwebtoken@8.5.1` | [docs/A03-supply-chain.md](docs/A03-supply-chain.md) |
+| 10 | A10 — Mishandling of Exceptional Conditions | Raw database error leaked via note search | [docs/A10-error-handling.md](docs/A10-error-handling.md) |
 
-The table above only lists what's actually implemented and documented so far. The full list below tracks what's planned across the rest of the app.
+All 10 OWASP Top 10:2025 categories are implemented and documented on the backend.
 
 ## Planned vulnerabilities
 
 | Category (OWASP 2025) | Where | Status |
 |---|---|---|
 | A05 — Injection (XSS) | Note body rendering | Not started |
-| A10 — Mishandling of Exceptional Conditions | Global error middleware | Not started |
 
 ---
 
@@ -90,7 +90,8 @@ vuln_notes/
 │   ├── A06-insecure-design.md
 │   ├── A07-auth-failures.md
 │   ├── A08-integrity-failures.md
-│   └── A09-logging-failures.md
+│   ├── A09-logging-failures.md
+│   └── A10-error-handling.md
 ├── backend/
 │   ├── docker-compose.yml
 │   ├── drizzle.config.ts
